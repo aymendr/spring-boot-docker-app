@@ -21,9 +21,11 @@ pipeline {
       }
       stage('Docker Build and Push') {
             steps {
-              bat "printenv"
-              bat "docker build -t aymendr/numeric-app:$GIT_COMMIT ."
-              bat "docker push aymendr/numeric-app:$GIT_COMMIT"
+                withDockerRegistry(credentialsId: 'loginpwddocker') {
+                  bat "printenv"
+                  bat "docker build -t aymendr/numeric-app:$GIT_COMMIT ."
+                  bat "docker push aymendr/numeric-app:$GIT_COMMIT"
+                }
             }
       }      
   }
