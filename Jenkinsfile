@@ -21,7 +21,7 @@ pipeline {
       }
       stage('Docker Build and Push') {
             steps {
-                withDockerRegistry(credentialsId: 'loginpwddocker') {
+                withDockerRegistry(credentialsId: 'loginpwddocker', url: 'https://index.docker.io/v1/') {
                   bat "printenv"
                   bat "docker build -t aymendr/numeric-app:$GIT_COMMIT ."
                   bat "docker push aymendr/numeric-app:$GIT_COMMIT"
