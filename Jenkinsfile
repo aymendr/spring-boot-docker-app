@@ -8,7 +8,7 @@ pipeline {
               archive 'target/*.jar' //so that they can be downloaded later
             }
       }
-      stage('Unit Tests') {
+      stage('Unit Tests and Jacoco reports') {
             steps {
               bat "mvn test"
             }
