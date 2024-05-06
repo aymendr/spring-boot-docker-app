@@ -19,7 +19,7 @@ pipeline {
                 }
             }
       }
-      /*stage('Docker Build and Push') {
+      stage('Docker Build and Push') {
             steps {
                 withDockerRegistry(credentialsId: 'loginpwddocker', url: 'https://index.docker.io/v1/') {
                   bat "printenv"
@@ -27,6 +27,6 @@ pipeline {
                   bat "docker push aymendr/numeric-app:$GIT_COMMIT"
                 }
             }
-      }*/      
+      }
   }
 }
