@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   stages {
-      /*stage('Build Artifact') {
+      stage('Build Artifact') {
             steps {
               bat "mvn clean package -DskipTests=true"
               archive 'target/*.jar' //so that they can be downloaded later
@@ -19,7 +19,7 @@ pipeline {
                 }
             }
       }
-      /*stage('Docker Build and Push') {
+      stage('Docker Build and Push') {
             steps {
                 withDockerRegistry(credentialsId: 'loginpwddocker', url: 'https://index.docker.io/v1/') {
                   bat "printenv"
@@ -27,12 +27,12 @@ pipeline {
                   bat "docker push aymendr/numeric-app:$GIT_COMMIT"
                 }
             }
-      }*/
+      }
 
       stage('Kubernetes Deployment - DEV') {
         steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
-            bat "sed -i 's#replace#aymendr/numeric-app:v1#g' k8s_deployment_service.yaml"
+            bat "sed -i 's#replace#aymendr/numeric-app:$GIT_COMMIT#g' k8s_deployment_service.yaml"
             bat "kubectl apply -f k8s_deployment_service.yaml"
           }
         }
